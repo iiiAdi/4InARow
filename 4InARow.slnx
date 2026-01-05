@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="4InARow.vcxproj" Id="5190bb85-208c-4678-9770-aa44991f8dd8" />
+</Solution>
