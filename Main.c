@@ -7,7 +7,6 @@
 #define ROWS 6
 #define COLS 7
 
-
 void CleanConsole(){
 	system("cls");
 }
@@ -94,8 +93,6 @@ void PlayerVsPlayer() {
 		
 		// Check for winning possibility.
 
-
-
 		printBoard(gameArray);
 	
 		if (playerTurn == 2) {
@@ -105,11 +102,8 @@ void PlayerVsPlayer() {
 	}
 }
 
-
-
 void main() {
 	//LoadMenu();
 	//LoadBoard();
 	PlayerVsPlayer();
-
 }
