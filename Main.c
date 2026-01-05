@@ -6,7 +6,7 @@
 
 #define ROWS 6
 #define COLS 7
-//ora ora ora 
+
 void CleanConsole(){
 	system("cls");
 }
