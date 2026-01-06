@@ -7,7 +7,6 @@
 #define ROWS 6
 #define COLS 7
 
-
 void CleanConsole(){
 	system("cls");
 }
@@ -114,6 +113,8 @@ void PlayerVsPlayer() {
 			isValid = PlaceDisc(gameArray, Selection - 1, playerTurn, &Winner);
 		} while (isValid == 0);
 		
+		// Check for winning possibility.
+
 
 
 		printBoard(gameArray);
@@ -131,11 +132,8 @@ void PlayerVsPlayer() {
 	printf("Player %d, won!", Winner);
 }
 
-
-
 void main() {
 	//LoadMenu();
 	//LoadBoard();
 	PlayerVsPlayer();
-
 }
