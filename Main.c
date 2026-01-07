@@ -66,7 +66,17 @@ int checkWinner(int gameArr[][COLS], int Player, int rowNum, int colNum) {
 		}
 	}
 
-	
+	if (count == 4) {
+		return Player;
+	}
+
+	// Check for left->Right
+	count = 0;
+	for (i = 0; i < ROWS; i++) {
+		if (gameArr[rowNum][i] == Player) {
+			count++;
+		}
+	}
 
 	if (count == 4) {
 		return Player;
