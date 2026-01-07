@@ -7,6 +7,7 @@
 #define ROWS 6
 #define COLS 7
 
+
 void CleanConsole(){
 	system("cls");
 }
@@ -54,20 +55,42 @@ void printBoard(int gameArr[][COLS]) {
 	printf("\n");
 }
 
-int PlaceDisc(int gameArr[][COLS], int colNumber, int PlayerTurn) {
+int checkWinner(int gameArr[][COLS], int Player, int rowNum, int colNum) {
+	int i, j, count = 0;
+	
+	// Check for Up -> Down
+		
+	for (i = rowNum; i < COLS; i++) {
+		if (gameArr[i][colNum] == Player) {
+			count++;
+		}
+	}
+
+	
+
+	if (count == 4) {
+		return Player;
+	}
+
+	return 0;
+}
+
+
+int PlaceDisc(int gameArr[][COLS], int colNumber, int Player, int* Winner) {
 	int i;
 	if (colNumber < 0)
 		return 0;
 	for (i = ROWS; i > -1; i--) {
 		if (gameArr[i][colNumber] == 0) {
-			gameArr[i][colNumber] = PlayerTurn;
+			gameArr[i][colNumber] = Player;
+			*Winner = checkWinner(gameArr, Player, i, colNumber);
 			return 1;
 		}
 	}
 	return 0;
 }
 
-void FillBoard(int gameArr[][COLS]) {
+void ResetBoard(int gameArr[][COLS]) {
 	int i, j;
 	for (i = 0; i < ROWS; i++) {
 		for (j = 0; j < COLS; j++) {
@@ -80,7 +103,7 @@ void FillBoard(int gameArr[][COLS]) {
 void PlayerVsPlayer() {
 	int playerTurn = 1, Winner = 0, Selection, isValid;
 	int gameArray[ROWS][COLS];
-	FillBoard(gameArray);
+	ResetBoard(gameArray);
 
 	while (Winner == 0) {
 		printf("Player %d turn!\n", playerTurn);
@@ -88,22 +111,31 @@ void PlayerVsPlayer() {
 		//Validate and get the input from the player.
 		do {
 			getInputInt(0, 7, &Selection);
-			isValid = PlaceDisc(gameArray, Selection - 1, playerTurn);
+			isValid = PlaceDisc(gameArray, Selection - 1, playerTurn, &Winner);
 		} while (isValid == 0);
 		
-		// Check for winning possibility.
+
 
 		printBoard(gameArray);
+		// Check for winning possibility.
+		if (Winner != 0) {
+			break;
+		}
 	
 		if (playerTurn == 2) {
 			playerTurn -= 1;
 		}else
 			playerTurn++;
 	}
+
+	printf("Player %d, won!", Winner);
 }
+
+
 
 void main() {
 	//LoadMenu();
 	//LoadBoard();
 	PlayerVsPlayer();
+
 }
