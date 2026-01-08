@@ -2,4 +2,3 @@
 #include <stdio.h>
 
 void getInputInt(int, int, int*);
-int* createMatrix(int, int);

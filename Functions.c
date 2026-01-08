@@ -11,7 +11,3 @@ void getInputInt(int min, int max, int* address) {
 		result = scanf("%d", address);
 	} while (*address < min || *address > max);
 }
-
-int* createMatrix(int ROW, int COL) {
-	
-}
