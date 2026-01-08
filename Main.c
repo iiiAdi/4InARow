@@ -7,6 +7,7 @@
 #define ROWS 6
 #define COLS 7
 
+
 void CleanConsole(){
 	system("cls");
 }
@@ -65,7 +66,17 @@ int checkWinner(int gameArr[][COLS], int Player, int rowNum, int colNum) {
 		}
 	}
 
-	
+	if (count == 4) {
+		return Player;
+	}
+
+	// Check for left->Right
+	count = 0;
+	for (i = 0; i < ROWS; i++) {
+		if (gameArr[rowNum][i] == Player) {
+			count++;
+		}
+	}
 
 	if (count == 4) {
 		return Player;
@@ -113,8 +124,6 @@ void PlayerVsPlayer() {
 			isValid = PlaceDisc(gameArray, Selection - 1, playerTurn, &Winner);
 		} while (isValid == 0);
 		
-		// Check for winning possibility.
-
 
 
 		printBoard(gameArray);
@@ -132,8 +141,11 @@ void PlayerVsPlayer() {
 	printf("Player %d, won!", Winner);
 }
 
+
+
 void main() {
 	//LoadMenu();
 	//LoadBoard();
 	PlayerVsPlayer();
+
 }
