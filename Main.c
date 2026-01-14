@@ -58,9 +58,8 @@ void PlayerVsComputer() {
 	int gameArray[ROWS][COLS] = {0};
 	int difficulty;
 
-	// בחירת רמת קושי
 	printf("Select Difficulty:\n1. Easy\n2. Medium\n");
-	getInputInt(1, 2, &difficulty);
+	getInputInt(1, 2, &difficulty);	
 
 	char msg[100] = "Game Started Good luck! :3";
 	printBoard(gameArray, msg);
