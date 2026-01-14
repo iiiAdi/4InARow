@@ -55,32 +55,40 @@ void printBoard(int gameArr[][COLS]) {
 	printf("\n");
 }
 
+int countDirection(int gameArr[][COLS], int row, int col, int dRow, int dCol, int player) {
+	int count = 0;
+	int r = row + dRow;
+	int c = col + dCol;
+
+	while (r >= 0 && r < ROWS && c >= 0 && c < COLS && gameArr[r][c] == player) {
+		count++;
+		r += dRow;
+		c += dCol;
+	}
+	return count;
+}
+
 int checkWinner(int gameArr[][COLS], int Player, int rowNum, int colNum) {
-	int i, j, count = 0;
+	int count;
+
+	// Horizontal Check
+	count = 1 + countDirection(gameArr, rowNum, colNum, 0, -1, Player)
+		+ countDirection(gameArr, rowNum, colNum, 0, 1, Player);
+	if (count >= 4) return Player;
+
+	// Vertial Check
+	count = 1 + countDirection(gameArr, rowNum, colNum, 1, 0, Player);
+	if (count >= 4) return Player;
+
+	// Diagonal (\)
+	count = 1 + countDirection(gameArr, rowNum, colNum, -1, -1, Player)
+		+ countDirection(gameArr, rowNum, colNum, 1, 1, Player);
+	if (count >= 4) return Player;
 	
-	// Check for Up -> Down
-		
-	for (i = rowNum; i < COLS; i++) {
-		if (gameArr[i][colNum] == Player) {
-			count++;
-		}
-	}
-
-	if (count == 4) {
-		return Player;
-	}
-
-	// Check for left->Right
-	count = 0;
-	for (i = 0; i < ROWS; i++) {
-		if (gameArr[rowNum][i] == Player) {
-			count++;
-		}
-	}
-
-	if (count == 4) {
-		return Player;
-	}
+	// Diagonal (/)
+	count = 1 + countDirection(gameArr, rowNum, colNum, 1, -1, Player)
+		+ countDirection(gameArr, rowNum, colNum, -1, 1, Player);
+	if (count >= 4) return Player;
 
 	return 0;
 }
