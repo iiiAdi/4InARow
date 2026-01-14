@@ -7,11 +7,11 @@
 
 // Main User Functions
 void getInputInt(int, int, int*);
+void enterToContinue();
 
 
 // Game Mechanics
 int isColumnFull(int gameArr[][COLS], int);
 int PlaceDisc(int gameArr[][COLS], int, int, int*);
-
 
 // Game-Board Main Functions

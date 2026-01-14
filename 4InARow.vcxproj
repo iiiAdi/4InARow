@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AIControls.c" />
     <ClCompile Include="GameMechanics.c" />
     <ClCompile Include="Main.c" />
     <ClCompile Include="Visuals.c" />

@@ -15,6 +15,11 @@ void getInputInt(int min, int max, int* address) {
 	} while (*address < min || *address > max);
 }
 
+void enterToContinue() {
+	while ((getchar()) != '\n');
+	getchar();
+}
+
 int isColumnFull(int gameArr[][COLS], int colNumber) {
 	return gameArr[0][colNumber] != 0;
 }

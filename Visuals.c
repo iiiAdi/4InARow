@@ -9,21 +9,8 @@ void CleanConsole() {
 	system("cls");
 }
 
-
-// Resets the board
-//void ResetBoard(int gameArr[][COLS]) {
-//	int i, j;
-//	for (i = 0; i < ROWS; i++) {
-//		for (j = 0; j < COLS; j++) {
-//			gameArr[i][j] = 0;
-//		}
-//	}
-//	printBoard(gameArr);
-//}
-
-
 // Prints the current state of the game
-void printBoard(int gameArr[][COLS]) {
+void printBoard(int gameArr[][COLS], char* msg) {
 	CleanConsole();
 	int i, j, numberInPos;
 
@@ -57,4 +44,9 @@ void printBoard(int gameArr[][COLS]) {
 		printf("%2d", i + 1);
 	}
 	printf("\n");
+
+	if (msg != NULL && msg[0] != '\0') {
+		printf("[GAME STATUS]: %s \n", msg);
+	}
+	
 }
