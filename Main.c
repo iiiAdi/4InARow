@@ -68,6 +68,7 @@ int countDirection(int gameArr[][COLS], int row, int col, int dRow, int dCol, in
 	return count;
 }
 
+// General Function to check if someone won
 int checkWinner(int gameArr[][COLS], int Player, int rowNum, int colNum) {
 	int count;
 
