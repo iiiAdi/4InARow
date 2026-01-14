@@ -1,35 +1,28 @@
-#define _CRT_SECURE_NO_WARNINGS
-
-// Main Imports
-#include <stdio.h>
-#include <stdlib.h>
-
-// Self Imports
-#include "MainFunctions.h"
+//Imports
+#include "Board.h"
 #include "Colors.h"
 
-void getInputInt(int min, int max, int* address) {
-	int result;
-	do {
-		printf("Please enter your selection:\n");
-		result = scanf("%d", address);
-	} while (*address < min || *address > max);
-}
 
+
+// Clearing the console after a round
 void CleanConsole() {
 	system("cls");
 }
 
-void ResetBoard(int gameArr[][COLS]) {
-	int i, j;
-	for (i = 0; i < ROWS; i++) {
-		for (j = 0; j < COLS; j++) {
-			gameArr[i][j] = 0;
-		}
-	}
-	printBoard(gameArr);
-}
 
+// Resets the board
+//void ResetBoard(int gameArr[][COLS]) {
+//	int i, j;
+//	for (i = 0; i < ROWS; i++) {
+//		for (j = 0; j < COLS; j++) {
+//			gameArr[i][j] = 0;
+//		}
+//	}
+//	printBoard(gameArr);
+//}
+
+
+// Prints the current state of the game
 void printBoard(int gameArr[][COLS]) {
 	CleanConsole();
 	int i, j, numberInPos;

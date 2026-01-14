@@ -127,12 +127,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Functions.c" />
+    <ClCompile Include="GameMechanics.c" />
     <ClCompile Include="Main.c" />
+    <ClCompile Include="Visuals.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AI.h" />
+    <ClInclude Include="Board.h" />
     <ClInclude Include="Colors.h" />
-    <ClInclude Include="MainFunctions.h" />
+    <ClInclude Include="Controls.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

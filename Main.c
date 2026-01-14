@@ -1,7 +1,10 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
-#include <stdlib.h>
-#include "MainFunctions.h"
+
+
+#include "Controls.h"
+#include "AI.h"
+#include "Board.h"
 
 
 void LoadMenu() {
@@ -51,26 +54,15 @@ int checkWinner(int gameArr[][COLS], int Player, int rowNum, int colNum) {
 }
 
 
-int PlaceDisc(int gameArr[][COLS], int colNumber, int Player, int* Winner) {
-	int i;
-	if (colNumber < 0)
-		return 0;
-	for (i = ROWS; i > -1; i--) {
-		if (gameArr[i][colNumber] == 0) {
-			gameArr[i][colNumber] = Player;
-			*Winner = checkWinner(gameArr, Player, i, colNumber);
-			return 1;
-		}
-	}
-	return 0;
-}
+
 
 
 
 void PlayerVsPlayer() {
 	int playerTurn = 1, Winner = 0, Selection, isValid;
-	int gameArray[ROWS][COLS];
-	ResetBoard(gameArray);
+	int gameArray[ROWS][COLS] = {0};
+	//ResetBoard(gameArray);
+	printBoard(gameArray);
 
 	while (Winner == 0) {
 		printf("Player %d turn!\n", playerTurn);

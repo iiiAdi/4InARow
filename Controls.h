@@ -9,6 +9,9 @@
 void getInputInt(int, int, int*);
 
 
+// Game Mechanics
+int isColumnFull(int gameArr[][COLS], int);
+int PlaceDisc(int gameArr[][COLS], int, int, int*);
+
+
 // Game-Board Main Functions
-void ResetBoard(int gameArr[][COLS]);
-void printBoard(int gameArr[][COLS]);
