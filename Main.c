@@ -1,59 +1,10 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
-
 #include "Controls.h"
 #include "AI.h"
 #include "Board.h"
 
-
-void LoadMenu() {
-	printf("Welcome to 4 in A Row!\n");
-	printf("1. PvP\n");
-	printf("2. PvE\n");
-	printf("3. Exit\n");
-}
-
-int countDirection(int gameArr[][COLS], int row, int col, int dRow, int dCol, int player) {
-	int count = 0;
-	int r = row + dRow;
-	int c = col + dCol;
-
-	while (r >= 0 && r < ROWS && c >= 0 && c < COLS && gameArr[r][c] == player) {
-		count++;
-		r += dRow;
-		c += dCol;
-	}
-	return count;
-}
-
-// General Function to check if someone won
-int checkWinner(int gameArr[][COLS], int Player, int rowNum, int colNum) {
-	int count;
-
-	// Horizontal Check
-	count = 1 + countDirection(gameArr, rowNum, colNum, 0, -1, Player)
-		+ countDirection(gameArr, rowNum, colNum, 0, 1, Player);
-	if (count >= 4) return Player;
-
-	// Vertial Check
-	count = 1 + countDirection(gameArr, rowNum, colNum, 1, 0, Player);
-	if (count >= 4) return Player;
-
-	// Diagonal (\)
-	count = 1 + countDirection(gameArr, rowNum, colNum, -1, -1, Player)
-		+ countDirection(gameArr, rowNum, colNum, 1, 1, Player);
-	if (count >= 4) return Player;
-	
-	// Diagonal (/)
-	count = 1 + countDirection(gameArr, rowNum, colNum, 1, -1, Player)
-		+ countDirection(gameArr, rowNum, colNum, -1, 1, Player);
-	if (count >= 4) return Player;
-
-	return 0;
-}
-
-
-void PlayerVsComputer() {
+int PlayerVsComputer() {
 	int playerTurn = 1, Winner = 0, Selection, isValid;
 	int gameArray[ROWS][COLS] = {0};
 	int difficulty;
@@ -84,51 +35,52 @@ void PlayerVsComputer() {
 		if (Winner != 0) {
 			if (Winner == 1) printf("You Won!\n");
 			else printf("Computer Won!\n");
-
-
-			printf("\nPress Enter to return to main menu...");
+			printf("Press [Enter] to see statistics...");
 			enterToContinue();
-			break;
+			return Winner;
 		}
 
 		playerTurn = (playerTurn == 1) ? 2 : 1;
 	}
+	return 0;
 }
 
 
-void PlayerVsPlayer() {
-	int playerTurn = 1, Winner = 0, Selection, isValid;
-	int gameArray[ROWS][COLS] = {0};
-	//ResetBoard(gameArray);
-	printBoard(gameArray, NULL);
 
-	while (Winner == 0) {
-		printf("Player %d turn!\n", playerTurn);
-
-		//Validate and get the input from the player.
-		do {
-			getInputInt(0, 7, &Selection);
-			isValid = PlaceDisc(gameArray, Selection - 1, playerTurn, &Winner);
-		} while (isValid == 0);
-
+	int PlayerVsPlayer() {
+		int playerTurn = 1, Winner = 0, Selection, isValid;
+		int gameArray[ROWS][COLS] = { 0 };
 		printBoard(gameArray, NULL);
-		// Check for winning possibility.
-		if (Winner != 0) {
-			break;
+
+		while (Winner == 0) {
+			printf("Player %d's turn!\n", playerTurn);
+
+			do {
+				getInputInt(1, COLS, &Selection);
+
+				isValid = PlaceDisc(gameArray, Selection - 1, playerTurn, &Winner);
+				if (!isValid) printf("Invalid move, try again.\n");
+
+			} while (isValid == 0);
+
+			printBoard(gameArray, NULL);
+
+			if (Winner != 0) {
+				printf("\nPlayer %d Won!\n", Winner);
+				printf("Press [Enter] to see statistics...");
+				enterToContinue();
+				return Winner;
+			}
+			playerTurn = (playerTurn == 1) ? 2 : 1;
 		}
-	
-		playerTurn = (playerTurn == 1) ? 2 : 1;
+		return 0;
 	}
-
-	printf("Player %d, won!\nPress [Enter] to return to the menu.", Winner);
-	enterToContinue();
-
-}
 
 
 
 void main() {
-	int choice = 0;
+	int choice = 0, winsP1 = 0 , winsP2 = 0, winsPC = 0 ;
+	int lastGameResult = 0;
 
 	srand(time(NULL));
 
@@ -142,11 +94,27 @@ void main() {
 		//If valid choice, get the thing:
 		switch (choice) {
 		case 1:
-			PlayerVsPlayer();
+			lastGameResult = PlayerVsPlayer();	
+			if (lastGameResult == 1) winsP1++;
+			else if (lastGameResult == 2) winsP2++;
+			CleanConsole(); 
+			printf("\nGame Over! Here are the updated standings:\n");
+			printStats(winsP1, winsP2, winsPC); 
+			printf("\nPress [Enter] to return to the main menu...");
+			getchar();
 			break;
+
 		case 2:
-			PlayerVsComputer();
+			lastGameResult = PlayerVsComputer();
+			if (lastGameResult == 1) winsP1++;
+			else if (lastGameResult == 2) winsPC++;
+			CleanConsole();
+			printf("\nGame Over! Here are the updated standings:\n");
+			printStats(winsP1, winsP2, winsPC);
+			printf("\nPress [Enter] to return to the main menu...");
+			getchar();
 			break;
+
 		case 3:
 			printf("Goodbye!\n");
 			break;

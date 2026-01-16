@@ -1,52 +1,74 @@
-//Imports
+﻿//Imports
 #include "Board.h"
 #include "Colors.h"
 
-
+void LoadMenu() {
+    printf("Welcome to 4 in A Row!\n");
+    printf("1. PvP\n");
+    printf("2. PvE\n");
+    printf("3. Exit\n");
+}
 
 // Clearing the console after a round
 void CleanConsole() {
 	system("cls");
 }
 
-// Prints the current state of the game
+
 void printBoard(int gameArr[][COLS], char* msg) {
-	CleanConsole();
-	int i, j, numberInPos;
+    CleanConsole(); 
 
-	// Prints the current game Matrix!
-	for (i = 0; i < ROWS; i++) {
-		for (j = 0; j < COLS; j++) {
-			numberInPos = gameArr[i][j];
-			if (numberInPos > 0) {
-				if (numberInPos == 1) {
-					printf(YELLOW);
-				}
-				else
-					printf(RED);
+    int i, j;
 
-				printf("%2c" RESET, 'O');
-				continue;
-			}
-			printf("%2c", 'X');
-		}
-		printf("\n");
-	}
+    printf("\n  Connect Four - HIT Project\n\n");
+    // Prints the current game Matrix
+    for (i = 0; i < ROWS; i++) {
+        printf("  "); 
+        for (int k = 0; k < COLS; k++) {
+            printf("+---");
+        }
+        printf("+\n");
 
-	// Prints the game Numbers:
+        printf("  ");
+        for (j = 0; j < COLS; j++) {
+            printf("|");
 
-	for (i = 0; i < COLS * 2; i++) {
-		printf("-");
-	}
+            int cellValue = gameArr[i][j];
+			//checks the value in the cell and prints the color of the disk accordingly
+            if (cellValue == 0) {
+                printf("   ");
+            }
+            else if (cellValue == 1) {
+                printf(" ");
+                printf(YELLOW "O" RESET);
+                printf(" ");
+            }
+            else if (cellValue == 2) {
+                printf(" ");
+                printf(RED "O" RESET);
+                printf(" ");
+            }
+        }
+        printf("|\n");
+    }
 
-	printf("\n");
-	for (i = 0; i < COLS; i++) {
-		printf("%2d", i + 1);
-	}
-	printf("\n");
+    printf("  ");
+    for (int k = 0; k < COLS; k++) {
+        printf("+---");
+    }
+    printf("+\n");
 
-	if (msg != NULL && msg[0] != '\0') {
-		printf("[GAME STATUS]: %s \n", msg);
-	}
-	
+    printf("    1   2   3   4   5   6   7\n\n");
+    if (msg != NULL && msg[0] != '\0') {
+        printf("  [GAME INFO]: %s \n", msg);
+    }
+}
+
+void printStats(int p1, int p2, int pc) {
+    printf("\n" CYAN "=== Game Statistics ===" RESET "\n");
+    printf("Player 1 Wins: %d\n", p1);
+    printf("Player 2 Wins: %d\n", p2);
+    printf("Computer Wins: %d\n", pc);
+    printf("=======================\n\n");
+    enterToContinue();
 }

@@ -10,3 +10,5 @@
 
 void printBoard(int gameArr[][COLS], char*);
 void CleanConsole();
+void printStats(int p1, int p2, int pc);
+void LoadMenu();
