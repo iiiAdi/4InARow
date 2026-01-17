@@ -13,22 +13,19 @@ int getNextOpenRow(int gameArr[][COLS], int col) {
 
 int scoreDirection(int gameArr[][COLS], int row, int col, int dRow, int dCol, int player) {
     int count = 0;
-    // בודקים 3 צעדים קדימה לכיוון הזה
     for (int i = 1; i < 4; i++) {
         int r = row + dRow * i;
         int c = col + dCol * i;
 
-        if (r < 0 || r >= ROWS || c < 0 || c >= COLS) break; // יצאנו מהלוח
+        if (r < 0 || r >= ROWS || c < 0 || c >= COLS) break; 
 
         if (gameArr[r][c] == player) {
-            count++; // מצאנו דיסקית שלנו
+            count++; 
         }
         else if (gameArr[r][c] == 0) {
-            // משבצת ריקה זה בסדר (זה פוטנציאל), אבל לא מעלה ניקוד ישיר כרגע
-            // אפשר לתת חצי נקודה אם רוצים
         }
         else {
-            break; // נתקענו בדיסקית של היריב - הכיוון הזה חסום
+            break; 
         }
     }
     return count;
@@ -69,7 +66,7 @@ int evaluatePosition(int gameArr[][COLS], int row, int col, int player) {
 // Get the current computer move based on the difficulty.
 int getComputerMove(int gameArr[][COLS], int difficulty) {
     int col, row, i;
-
+    //when choosing hard mode the game checks every possible move and evalute it  
     if (difficulty == 3) {
         int bestCol = -1;
         long long maxScore = -1000000000; 
@@ -91,6 +88,7 @@ int getComputerMove(int gameArr[][COLS], int difficulty) {
             currentScore += evaluatePosition(gameArr, row, col, 2);
             gameArr[row][col] = 0; 
 
+
             gameArr[row][col] = 1; 
             int enemyScore = evaluatePosition(gameArr, row, col, 1);
 
@@ -100,7 +98,7 @@ int getComputerMove(int gameArr[][COLS], int difficulty) {
             }
             gameArr[row][col] = 0; 
 
-           
+           //checks for traps
             if (row > 0) {
                 gameArr[row - 1][col] = 1; 
                 if (checkWinner(gameArr, 1, row - 1, col) == 1) {
