@@ -2,6 +2,7 @@
 #include "Board.h"
 #include "Colors.h"
 
+// Loads the menu
 void LoadMenu() {
     printf(CYAN "=== MENU ===\n\n" RESET);
     printf("[1] Player Vs. Player\n");
@@ -14,17 +15,16 @@ void CleanConsole() {
 	system("cls");
 }
 
+// Prints the logo of the game
 void printLogo() {
     CleanConsole();
     printf(CYAN "=======================================================\n" RESET);
 
-    // CONNECT - בצהוב
     printf(YELLOW "   ___ ___  _  _  _  _  ___  ___  _____ \n");
     printf(YELLOW "  / __/ _ \\| \\| || \\| || __|/ __||_   _|\n");
     printf(YELLOW " | (_| (_) | .` || .` || _| | (__   | |  \n");
     printf(YELLOW "  \\___\\___/|_|\\_||_|\\_||___| \\___|  |_|  \n");
 
-    // FOUR (אדום) - מיושר למרכז בדיוק
     printf(RED    "           ___ ___  _   _  ___            \n");
     printf(RED    "          | __/ _ \\| | | || _ \\           \n");
     printf(RED    "          | _| (_) | |_| ||   /           \n");
@@ -32,19 +32,18 @@ void printLogo() {
 
     printf("\n" RESET);
 
-    // מסגרת תחתונה וקרדיטים
     printf(CYAN "=======================================================\n" RESET);
     printf(CYAN "       Created by: [Adi Makmal] & [Idan]         \n" RESET);
     printf(CYAN "=======================================================\n" RESET);
     printf("\n");
 }
 
+// Prints the current game Matrix
 void printBoard(int gameArr[][COLS], char* msg) {
     CleanConsole(); 
 
     int i, j;
 
-    // Prints the current game Matrix
     for (i = 0; i < ROWS; i++) {
         printf("  "); 
         for (int k = 0; k < COLS; k++) {
@@ -57,7 +56,6 @@ void printBoard(int gameArr[][COLS], char* msg) {
             printf("|");
 
             int cellValue = gameArr[i][j];
-			//checks the value in the cell and prints the color of the disk accordingly
             if (cellValue == 0) {
                 printf("   ");
             }
@@ -87,6 +85,7 @@ void printBoard(int gameArr[][COLS], char* msg) {
     }
 }
 
+// Prints the stats.
 void printStats(int p1, int p2, int pc) {
     printf("\n" CYAN "=== Game Statistics ===" RESET "\n");
     printf("Player 1 Wins: %d\n", p1);

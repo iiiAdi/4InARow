@@ -13,7 +13,9 @@ void enterToContinue();
 // Game Mechanics
 int isColumnFull(int gameArr[][COLS], int);
 int PlaceDisc(int gameArr[][COLS], int, int, int*);
-int checkWinner(int gameArr[][COLS], int Player, int rowNum, int colNum);
+int checkWinner(int gameArr[][COLS], int, int, int);
 void enterToContinue();
 int checkDraw(int gameArr[][COLS]);
+int countDirection(int gameArr[][COLS], int, int, int, int, int );
+
 // Game-Board Main Functions

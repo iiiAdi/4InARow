@@ -4,6 +4,7 @@
 #include "AI.h"
 #include "Board.h"
 
+// Player Vs. Computer function
 int PlayerVsComputer() {
 	int playerTurn = 1, Winner = 0, Selection, isValid;
 	int gameArray[ROWS][COLS] = {0};
@@ -21,7 +22,6 @@ int PlayerVsComputer() {
 
 	char msg[100] = "Game Started Good luck! :3";
 	printBoard(gameArray, msg);
-
 
 	while (Winner == 0) {
 		if (playerTurn == 1) {
@@ -61,47 +61,43 @@ int PlayerVsComputer() {
 }
 
 
+// Player Vs. Player
+int PlayerVsPlayer() {
+	int playerTurn = 1, Winner = 0, Selection, isValid;
+	int gameArray[ROWS][COLS] = { 0 };
+	printBoard(gameArray, NULL);
 
-	int PlayerVsPlayer() {
-		int playerTurn = 1, Winner = 0, Selection, isValid;
-		int gameArray[ROWS][COLS] = { 0 };
+	while (Winner == 0) {
+		printf(GREEN"=== Player %d's turn!=== \n" RESET, playerTurn);
+
+		do {
+			getInputInt(1, COLS, &Selection);
+
+			isValid = PlaceDisc(gameArray, Selection - 1, playerTurn, &Winner);
+			if (!isValid) printf("Invalid move, try again.\n");
+
+		} while (isValid == 0);
+
 		printBoard(gameArray, NULL);
 
-		while (Winner == 0) {
-			printf("Player %d's turn!\n", playerTurn);
-
-			do {
-				getInputInt(1, COLS, &Selection);
-
-				isValid = PlaceDisc(gameArray, Selection - 1, playerTurn, &Winner);
-				if (!isValid) printf("Invalid move, try again.\n");
-
-			} while (isValid == 0);
-
-			printBoard(gameArray, NULL);
-
-			if (Winner != 0) {
-				printf(CYAN"\nPlayer %d Won!\n" RESET, Winner);
-				printf("Press [Enter] to see statistics...");
-				enterToContinue();
-				return Winner;
-			}
-
-			if (checkDraw(gameArray)) {
-				printf(YELLOW "\n It's a Draw! No one won.\n" RESET);
-				printf("Press [Enter] to return to menu...");
-				enterToContinue();
-				return 3; 
-			}
-
-			playerTurn = (playerTurn == 1) ? 2 : 1;
+		if (Winner != 0) {
+			printf(CYAN"\nPlayer %d Won!\n" RESET, Winner);
+			printf("Press [Enter] to see statistics...");
+			enterToContinue();
+			return Winner;
 		}
 
+		if (checkDraw(gameArray)) {
+			printf(YELLOW "\n It's a Draw! No one won.\n" RESET);
+			printf("Press [Enter] to return to menu...");
+			enterToContinue();
+			return 3; 
+		}
 
-		return 0;
+		playerTurn = (playerTurn == 1) ? 2 : 1;
 	}
-
-
+	return 0;
+}
 
 void main() {
 	int choice = 0, winsP1 = 0 , winsP2 = 0, winsPC = 0 ;
@@ -117,7 +113,7 @@ void main() {
 		// Get the choice
 		getInputInt(1, 3, &choice);
 
-		//If valid choice, get the thing:
+		//When valid:
 		switch (choice) {
 		case 1:
 			lastGameResult = PlayerVsPlayer();	

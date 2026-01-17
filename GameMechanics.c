@@ -11,15 +11,17 @@
 void getInputInt(int min, int max, int* address) {
 	int result;
 	do {
-		printf("\nPlease enter your selection (%d - %d) :\n", min, max);
+		printf("\nYour Choice > (%d - %d) :\n>> ", min, max);
 		result = scanf("%d", address);
 		while (getchar() != '\n');
 	} while (*address < min || *address > max);
 }
 
+// freeze the game until user presses enter key
 void enterToContinue() {
 	getchar();
 }
+
 //checks the column[0] to see if it's full
 int isColumnFull(int gameArr[][COLS], int colNumber) {
 	return gameArr[0][colNumber] != 0;
@@ -58,13 +60,14 @@ int countDirection(int gameArr[][COLS], int row, int col, int dRow, int dCol, in
 	return count;
 }
 
+// Checks if the board is full.
 int checkDraw(int gameArr[][COLS]) {
 	for (int i = 0; i < COLS; i++) {
 		if (gameArr[0][i] == 0) {
-			return 0; // מצאנו מקום פנוי בשורה העליונה -> המשחק ממשיך
+			return 0; 
 		}
 	}
-	return 1; // השורה העליונה מלאה לגמרי -> תיקו
+	return 1;
 }
 // General Function to check if someone won
 int checkWinner(int gameArr[][COLS], int Player, int rowNum, int colNum) {
