@@ -39,14 +39,26 @@ int scoreDirection(int gameArr[][COLS], int row, int col, int dRow, int dCol, in
 int evaluatePosition(int gameArr[][COLS], int row, int col, int player) {
     int score = 0;
 
-    // Horizontal
+    // Horizontal 
     int count = scoreDirection(gameArr, row, col, 0, -1, player) + scoreDirection(gameArr, row, col, 0, 1, player);
-    if (count >= 3) score += 1000000; // Winning
-    else if (count == 2) score += 100; // 3 in a row
-    else if (count == 1) score += 10;  // 2 in a row
+    if (count >= 3) score += 1000000;
+    else if (count == 2) score += 100;
+    else if (count == 1) score += 10;
 
     // Vertical
-    count = scoreDirection(gameArr, row, col, 1, 0, player); 
+    count = scoreDirection(gameArr, row, col, 1, 0, player);
+    if (count >= 3) score += 1000000;
+    else if (count == 2) score += 100;
+    else if (count == 1) score += 10;
+
+    // Diagonal 1
+    count = scoreDirection(gameArr, row, col, -1, -1, player) + scoreDirection(gameArr, row, col, 1, 1, player);
+    if (count >= 3) score += 1000000;
+    else if (count == 2) score += 100;
+    else if (count == 1) score += 10;
+
+    // Diagonal 2
+    count = scoreDirection(gameArr, row, col, 1, -1, player) + scoreDirection(gameArr, row, col, -1, 1, player);
     if (count >= 3) score += 1000000;
     else if (count == 2) score += 100;
     else if (count == 1) score += 10;
@@ -60,9 +72,7 @@ int getComputerMove(int gameArr[][COLS], int difficulty) {
 
     if (difficulty == 3) {
         int bestCol = -1;
-        long long maxScore = -1000000000;
-        int col, row;
-
+        long long maxScore = -1000000000; 
         int strategies[COLS] = { 0 };
 
         for (col = 0; col < COLS; col++) {
@@ -77,43 +87,38 @@ int getComputerMove(int gameArr[][COLS], int difficulty) {
             if (col == 3) currentScore += 40;
             else if (col == 2 || col == 4) currentScore += 20;
 
-            gameArr[row][col] = 2; 
-            if (checkWinner(gameArr, 2, row, col) == 2) currentScore += 1000000;
-            else {
-                if (countDirection(gameArr, row, col, 1, 0, 2) >= 2) 
-                    currentScore += 50;
-            }
-            gameArr[row][col] = 0;
+            gameArr[row][col] = 2;
+            currentScore += evaluatePosition(gameArr, row, col, 2);
+            gameArr[row][col] = 0; 
 
-            gameArr[row][col] = 1;
-            if (checkWinner(gameArr, 1, row, col) == 1) currentScore += 500000;
-            else {
-                if (countDirection(gameArr, row, col, 0, 1, 1) + countDirection(gameArr, row, col, 0, -1, 1) >= 2)
-                    currentScore += 300;
-            }
-            gameArr[row][col] = 0;
+            gameArr[row][col] = 1; 
+            int enemyScore = evaluatePosition(gameArr, row, col, 1);
 
+            if (enemyScore >= 1000000) currentScore += 500000;
+            else {
+                currentScore += (enemyScore / 2);
+            }
+            gameArr[row][col] = 0; 
+
+           
             if (row > 0) {
-                gameArr[row - 1][col] = 1;
+                gameArr[row - 1][col] = 1; 
                 if (checkWinner(gameArr, 1, row - 1, col) == 1) {
-                    currentScore -= 100000;
+                    currentScore -= 2000000; 
                 }
                 gameArr[row - 1][col] = 0;
             }
 
             strategies[col] = currentScore;
         }
-
         for (col = 0; col < COLS; col++) {
             if (strategies[col] > maxScore) {
                 maxScore = strategies[col];
                 bestCol = col;
             }
         }
-
         return bestCol;
     }
-    
 
     else if (difficulty == 2) {
       //checks if the computer can win by the next move and if its true executes the move
@@ -148,3 +153,4 @@ int getComputerMove(int gameArr[][COLS], int difficulty) {
 
     return col;
 }
+
