@@ -8,9 +8,16 @@ int PlayerVsComputer() {
 	int playerTurn = 1, Winner = 0, Selection, isValid;
 	int gameArray[ROWS][COLS] = {0};
 	int difficulty;
+	printLogo();
 
-	printf("Select Difficulty:\n1. Easy\n2. Medium\n3. Hard\n");
-	getInputInt(1,3, &difficulty);	
+	printf(CYAN"=== Select Difficulty ===\n"RESET);
+	printf("\n[1] Easy\n[2] Medium\n[3] Hard\n[4] Back\n");
+
+	getInputInt(1,4, &difficulty);	
+
+	if (difficulty == 4) {
+		return 4;
+	}
 
 	char msg[100] = "Game Started Good luck! :3";
 	printBoard(gameArray, msg);
@@ -21,7 +28,7 @@ int PlayerVsComputer() {
 			do {
 				getInputInt(1, COLS, &Selection);
 				isValid = PlaceDisc(gameArray, Selection - 1, playerTurn, &Winner);
-				if (!isValid) printf("Invalid move, try again.\n");
+				if (!isValid) printf(RED "Invalid move, try again.\n");
 			} while (isValid == 0);
 		}
 		else {
@@ -33,8 +40,8 @@ int PlayerVsComputer() {
 		printBoard(gameArray, msg);
 
 		if (Winner != 0) {
-			if (Winner == 1) printf("You Won!\n");
-			else printf("Computer Won!\n");
+			if (Winner == 1) printf(YELLOW "You Won!\n" RESET);
+			else printf(RED "Computer Won!\n" RESET);
 			printf("Press [Enter] to see statistics...");
 			enterToContinue();
 			return Winner;
@@ -74,7 +81,7 @@ int PlayerVsComputer() {
 			printBoard(gameArray, NULL);
 
 			if (Winner != 0) {
-				printf("\nPlayer %d Won!\n", Winner);
+				printf(CYAN"\nPlayer %d Won!\n" RESET, Winner);
 				printf("Press [Enter] to see statistics...");
 				enterToContinue();
 				return Winner;
@@ -104,6 +111,7 @@ void main() {
 
 	do {
 		CleanConsole();
+		printLogo();
 		LoadMenu();
 
 		// Get the choice
@@ -119,18 +127,19 @@ void main() {
 			printf("\nGame Over! Here are the updated standings:\n");
 			printStats(winsP1, winsP2, winsPC); 
 			printf("\nPress [Enter] to return to the main menu...");
-			getchar();
+			enterToContinue();
 			break;
 
 		case 2:
 			lastGameResult = PlayerVsComputer();
 			if (lastGameResult == 1) winsP1++;
 			else if (lastGameResult == 2) winsPC++;
+			else if (lastGameResult == 4) break;
 			CleanConsole();
 			printf("\nGame Over! Here are the updated standings:\n");
 			printStats(winsP1, winsP2, winsPC);
 			printf("\nPress [Enter] to return to the main menu...");
-			getchar();
+			enterToContinue();
 			break;
 
 		case 3:

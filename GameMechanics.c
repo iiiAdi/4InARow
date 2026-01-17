@@ -11,7 +11,7 @@
 void getInputInt(int min, int max, int* address) {
 	int result;
 	do {
-		printf("Please enter your selection:\n");
+		printf("\nPlease enter your selection (%d - %d) :\n", min, max);
 		result = scanf("%d", address);
 		while (getchar() != '\n');
 	} while (*address < min || *address > max);

@@ -1,6 +1,6 @@
 ﻿#include "Controls.h"
 #include "AI.h"
-//tells the compter where its disk gonna be in the array when choosing a place
+// tells the compter where its disk gonna be in the array when choosing a place
 int getNextOpenRow(int gameArr[][COLS], int col) {
     for (int i = ROWS - 1; i >= 0; i--) {
         if (gameArr[i][col] == 0) return i;
@@ -82,6 +82,7 @@ int getComputerMove(int gameArr[][COLS], int difficulty) {
             gameArr[row][col] = 2; 
             if (checkWinner(gameArr, 2, row, col) == 2) currentScore += 1000000; // ניצחון מיידי
             else {
+                currentScore = evaluatePosition(gameArr, row, col, 2);
                 // בונוס על יצירת רצפים
                 // כאן אפשר להשתמש בפונקציית העזר evaluatePosition שיצרנו למעלה
                 // או פשוט לתת ניקוד בסיסי אם countDirection מחזיר 2 או 3
@@ -126,7 +127,7 @@ int getComputerMove(int gameArr[][COLS], int difficulty) {
     
 
     else if (difficulty == 2) {
-      //checks if the computer can win by the next move and its its true executes the move
+      //checks if the computer can win by the next move and if its true executes the move
         for (i = 0; i < COLS; i++) {
             if (isColumnFull(gameArr, i)) continue; 
 
@@ -138,7 +139,7 @@ int getComputerMove(int gameArr[][COLS], int difficulty) {
             }
             gameArr[row][i] = 0;
         }
-        //checks if it has to deffend against the other player to prevent a lose 
+        //checks if it has to defend against the other player to prevent a lose 
         for (i = 0; i < COLS; i++) {
             if (isColumnFull(gameArr, i)) continue;
 
