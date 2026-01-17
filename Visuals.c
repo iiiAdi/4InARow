@@ -33,7 +33,7 @@ void printLogo() {
     printf("\n" RESET);
 
     printf(CYAN "=======================================================\n" RESET);
-    printf(CYAN "       Created by: [Adi Makmal] & [Idan]         \n" RESET);
+    printf(CYAN "       Created by: [Adi Makmal] & [Idan Mordechaev]         \n" RESET);
     printf(CYAN "=======================================================\n" RESET);
     printf("\n");
 }
