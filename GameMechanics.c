@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 
 // Main Imports
 #include <stdio.h>
@@ -58,6 +58,14 @@ int countDirection(int gameArr[][COLS], int row, int col, int dRow, int dCol, in
 	return count;
 }
 
+int checkDraw(int gameArr[][COLS]) {
+	for (int i = 0; i < COLS; i++) {
+		if (gameArr[0][i] == 0) {
+			return 0; // מצאנו מקום פנוי בשורה העליונה -> המשחק ממשיך
+		}
+	}
+	return 1; // השורה העליונה מלאה לגמרי -> תיקו
+}
 // General Function to check if someone won
 int checkWinner(int gameArr[][COLS], int Player, int rowNum, int colNum) {
 	int count;

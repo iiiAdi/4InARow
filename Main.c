@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include "Controls.h"
 #include "AI.h"
@@ -9,8 +9,8 @@ int PlayerVsComputer() {
 	int gameArray[ROWS][COLS] = {0};
 	int difficulty;
 
-	printf("Select Difficulty:\n1. Easy\n2. Medium\n");
-	getInputInt(1, 2, &difficulty);	
+	printf("Select Difficulty:\n1. Easy\n2. Medium\n3. Hard\n");
+	getInputInt(1,3, &difficulty);	
 
 	char msg[100] = "Game Started Good luck! :3";
 	printBoard(gameArray, msg);
@@ -39,6 +39,14 @@ int PlayerVsComputer() {
 			enterToContinue();
 			return Winner;
 		}
+
+		if (checkDraw(gameArray)) {
+			printf(YELLOW "\n It's a Draw! No one won.\n" RESET);
+			printf("Press [Enter] to return to menu...");
+			enterToContinue();
+			return 3; 
+		}
+
 
 		playerTurn = (playerTurn == 1) ? 2 : 1;
 	}
@@ -71,8 +79,18 @@ int PlayerVsComputer() {
 				enterToContinue();
 				return Winner;
 			}
+
+			if (checkDraw(gameArray)) {
+				printf(YELLOW "\n It's a Draw! No one won.\n" RESET);
+				printf("Press [Enter] to return to menu...");
+				enterToContinue();
+				return 3; 
+			}
+
 			playerTurn = (playerTurn == 1) ? 2 : 1;
 		}
+
+
 		return 0;
 	}
 
